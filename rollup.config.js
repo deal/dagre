@@ -23,7 +23,7 @@ export default {
   ),
   plugins: [
     copy({
-      targets: [{ src: "lib", dest: "dist" }],
+      targets: [{ src: "src/lib", dest: "dist" }],
     }),
   ],
 };
