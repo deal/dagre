@@ -68,10 +68,10 @@ function dfs(g, root, nodeSep, weight, height, depths, v) {
   var bottom = util.addBorderNode(g, "_bb");
   var label = g.node(v);
 
-  g.node(top).height = label ? label.height / 2 : 0;
+  g.node(top).height = label && label.height ? label.height / 2 : 0;
   g.setParent(top, v);
   label.borderTop = top;
-  g.node(bottom).height = label ? label.height / 2 : 0;
+  g.node(bottom).height = label && label.height ? label.height / 2 : 0;
   g.setParent(bottom, v);
   label.borderBottom = bottom;
 
