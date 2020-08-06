@@ -1,5 +1,5 @@
 {
-  "name": "dagre",
+  "name": "@deal/dagre",
   "version": "0.9.0",
   "description": "Graph layout for JavaScript",
   "author": "Chris Pettitt <cpettitt@gmail.com>",
