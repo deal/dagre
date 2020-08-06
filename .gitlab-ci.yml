@@ -1,0 +1,4 @@
+include:
+  - project: "dealdotcom/cicd-tools"
+    ref: master
+    file: "/templates/MinimalWebLibrary.Common.gitlab-ci.yml"

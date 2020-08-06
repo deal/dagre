@@ -1,22 +1,37 @@
 {
   "name": "dagre",
-  "version": "0.8.6-pre",
+  "version": "0.9.0",
   "description": "Graph layout for JavaScript",
   "author": "Chris Pettitt <cpettitt@gmail.com>",
   "contributors": [
     "Matthew Dahl (https://github.com/sandersky)"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
   "keywords": [
     "graph",
     "layout"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup --config",
+    "prepublish": "yarn run build",
+    "semantic-release": "semantic-release",
+    "commitmsg": "commitlint -e $GIT_PARAMS"
+  },
+  "files": [
+    "dist"
   ],
   "dependencies": {
     "graphlib": "2.1.8",
     "lodash": "4.17.19"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@deal/semantic-release-config": "^1.1.1",
     "benchmark": "2.1.4",
     "browserify": "16.5.1",
     "chai": "4.2.0",
@@ -33,12 +48,15 @@
     "mocha": "8.0.1",
     "phantomjs-prebuilt": "2.1.16",
     "requirejs": "2.3.6",
+    "rollup": "^2.23.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "semantic-release": "^17.1.1",
     "semver": "7.3.2",
     "sprintf": "0.1.5",
     "uglify-js": "3.10.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dagrejs/dagre.git"
+    "url": "https://github.com/deal/dagre.git"
   }
 }
