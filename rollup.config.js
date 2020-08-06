@@ -2,12 +2,20 @@ import pkg from "./package.json";
 import copy from "rollup-plugin-copy";
 
 export default {
-  input: "index.js",
+  input: "src/index.js",
   output: [
     {
-      dir: "dist",
+      file: pkg.main,
       format: "cjs",
       sourcemap: true,
+      exports: "named",
+    },
+    {
+      name: "DealDagre",
+      file: pkg.module,
+      format: "es",
+      sourcemap: true,
+      exports: "named",
     },
   ],
   external: Object.keys(pkg.dependencies || {}).concat(
