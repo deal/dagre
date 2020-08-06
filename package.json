@@ -7,9 +7,7 @@
     "Matthew Dahl (https://github.com/sandersky)"
   ],
   "license": "MIT",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/index.js",
   "keywords": [
     "graph",
     "layout"
@@ -58,5 +56,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/deal/dagre.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
