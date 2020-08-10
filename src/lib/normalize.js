@@ -5,7 +5,7 @@ var util = require("./util");
 
 module.exports = {
   run: run,
-  undo: undo,
+  undo: undo
 };
 
 /*
@@ -26,9 +26,7 @@ module.exports = {
  */
 function run(g) {
   g.graph().dummyChains = [];
-  _.forEach(g.edges(), function (edge) {
-    normalizeEdge(g, edge);
-  });
+  _.forEach(g.edges(), function(edge) { normalizeEdge(g, edge); });
 }
 
 function normalizeEdge(g, e) {
@@ -48,11 +46,9 @@ function normalizeEdge(g, e) {
   for (i = 0, ++vRank; vRank < wRank; ++i, ++vRank) {
     edgeLabel.points = [];
     attrs = {
-      width: 0,
-      height: 0,
-      edgeLabel: edgeLabel,
-      edgeObj: e,
-      rank: vRank,
+      width: 0, height: 0,
+      edgeLabel: edgeLabel, edgeObj: e,
+      rank: vRank
     };
     dummy = util.addDummyNode(g, "edge", attrs, "_d");
     if (vRank === labelRank) {
@@ -72,15 +68,10 @@ function normalizeEdge(g, e) {
 }
 
 function undo(g) {
-  _.forEach(g.graph().dummyChains, function (v) {
+  _.forEach(g.graph().dummyChains, function(v) {
     var node = g.node(v);
     var origLabel = node.edgeLabel;
     var w;
-
-    if (!g.node(node.edgeObj.v) || !g.node(node.edgeObj.w)) {
-      return;
-    }
-
     g.setEdge(node.edgeObj, origLabel);
     while (node.dummy) {
       w = g.successors(v)[0];

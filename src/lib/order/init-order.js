@@ -17,35 +17,21 @@ module.exports = initOrder;
  */
 function initOrder(g) {
   var visited = {};
-  var simpleNodes = _.filter(g.nodes(), function (v) {
+  var simpleNodes = _.filter(g.nodes(), function(v) {
     return !g.children(v).length;
   });
-  var maxRank = _.max(
-    _.map(simpleNodes, function (v) {
-      return g.node(v).rank;
-    })
-  );
-  var layers = _.map(_.range(maxRank + 1), function () {
-    return [];
-  });
+  var maxRank = _.max(_.map(simpleNodes, function(v) { return g.node(v).rank; }));
+  var layers = _.map(_.range(maxRank + 1), function() { return []; });
 
   function dfs(v) {
     if (_.has(visited, v)) return;
     visited[v] = true;
     var node = g.node(v);
     layers[node.rank].push(v);
-
-    _.forEach(
-      _.filter(g.successors(v), function (s) {
-        return !g.children(s).length;
-      }),
-      dfs
-    );
+    _.forEach(g.successors(v), dfs);
   }
 
-  var orderedVs = _.sortBy(simpleNodes, function (v) {
-    return g.node(v).rank;
-  });
+  var orderedVs = _.sortBy(simpleNodes, function(v) { return g.node(v).rank; });
   _.forEach(orderedVs, dfs);
 
   return layers;
