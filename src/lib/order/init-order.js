@@ -34,6 +34,13 @@ function initOrder(g) {
     visited[v] = true;
     var node = g.node(v);
     layers[node.rank].push(v);
+
+    _.forEach(
+      _.filter(g.successors(v), function (s) {
+        return !g.children(s).length;
+      }),
+      dfs
+    );
   }
 
   var orderedVs = _.sortBy(simpleNodes, function (v) {
