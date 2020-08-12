@@ -198,11 +198,6 @@ function enterEdge(t, g, edge) {
 }
 
 function exchangeEdges(t, g, e, f) {
-  if (!e || !f) {
-    console.error("Exchange edges invoked with incomplete edge", e);
-    return;
-  }
-
   var v = e.v;
   var w = e.w;
   t.removeEdge(v, w);
