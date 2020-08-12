@@ -78,6 +78,8 @@ function undo(g) {
     var w;
 
     if (!g.node(node.edgeObj.v) || !g.node(node.edgeObj.w)) {
+      console.log("Returned no edge object");
+      console.log(node.edgeObj);
       return;
     }
 
