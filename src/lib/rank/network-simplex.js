@@ -61,6 +61,9 @@ function networkSimplex(g) {
   var e, f;
   while ((e = leaveEdge(t))) {
     f = enterEdge(t, g, e);
+
+    console.log("Define enter edge", f);
+
     exchangeEdges(t, g, e, f);
   }
 }
@@ -195,7 +198,7 @@ function enterEdge(t, g, edge) {
 }
 
 function exchangeEdges(t, g, e, f) {
-  if (!e) {
+  if (!e || !f) {
     console.error("Exchange edges invoked with incomplete edge", e);
     return;
   }
