@@ -71,7 +71,7 @@ function networkSimplex(g) {
 function initCutValues(t, g) {
   var vs = postorder(t, t.nodes());
   vs = vs.slice(0, vs.length - 1);
-  _.forEach(vs, function(v) {
+  _.forEach(vs, function (v) {
     assignCutValue(t, g, v);
   });
 }
@@ -103,7 +103,7 @@ function calcCutValue(t, g, child) {
 
   cutValue = graphEdge.weight;
 
-  _.forEach(g.nodeEdges(child), function(e) {
+  _.forEach(g.nodeEdges(child), function (e) {
     var isOutEdge = e.v === child,
       other = isOutEdge ? e.w : e.v;
 
@@ -134,7 +134,7 @@ function dfsAssignLowLim(tree, visited, nextLim, v, parent) {
   var label = tree.node(v);
 
   visited[v] = true;
-  _.forEach(tree.neighbors(v), function(w) {
+  _.forEach(tree.neighbors(v), function (w) {
     if (!_.has(visited, w)) {
       nextLim = dfsAssignLowLim(tree, visited, nextLim, w, v);
     }
@@ -153,7 +153,7 @@ function dfsAssignLowLim(tree, visited, nextLim, v, parent) {
 }
 
 function leaveEdge(tree) {
-  return _.find(tree.edges(), function(e) {
+  return _.find(tree.edges(), function (e) {
     return tree.edge(e).cutvalue < 0;
   });
 }
@@ -182,15 +182,24 @@ function enterEdge(t, g, edge) {
     flip = true;
   }
 
-  var candidates = _.filter(g.edges(), function(edge) {
-    return flip === isDescendant(t, t.node(edge.v), tailLabel) &&
-           flip !== isDescendant(t, t.node(edge.w), tailLabel);
+  var candidates = _.filter(g.edges(), function (edge) {
+    return (
+      flip === isDescendant(t, t.node(edge.v), tailLabel) &&
+      flip !== isDescendant(t, t.node(edge.w), tailLabel)
+    );
   });
 
-  return _.minBy(candidates, function(edge) { return slack(g, edge); });
+  return _.minBy(candidates, function (edge) {
+    return slack(g, edge);
+  });
 }
 
 function exchangeEdges(t, g, e, f) {
+  if (!e) {
+    console.error("Exchange edges invoked with incomplete edge", e);
+    return;
+  }
+
   var v = e.v;
   var w = e.w;
   t.removeEdge(v, w);
@@ -201,10 +210,12 @@ function exchangeEdges(t, g, e, f) {
 }
 
 function updateRanks(t, g) {
-  var root = _.find(t.nodes(), function(v) { return !g.node(v).parent; });
+  var root = _.find(t.nodes(), function (v) {
+    return !g.node(v).parent;
+  });
   var vs = preorder(t, root);
   vs = vs.slice(1);
-  _.forEach(vs, function(v) {
+  _.forEach(vs, function (v) {
     var parent = t.node(v).parent,
       edge = g.edge(v, parent),
       flipped = false;
@@ -214,7 +225,8 @@ function updateRanks(t, g) {
       flipped = true;
     }
 
-    g.node(v).rank = g.node(parent).rank + (flipped ? edge.minlen : -edge.minlen);
+    g.node(v).rank =
+      g.node(parent).rank + (flipped ? edge.minlen : -edge.minlen);
   });
 }
 
